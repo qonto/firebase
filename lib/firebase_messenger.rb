@@ -14,6 +14,8 @@ require 'firebase_messenger/api/notification'
 
 require 'firebase_messenger/notification'
 
+require 'firebase_messenger/firebase_messenger'
+
 # This is start point of the Genm
 module FirebaseMessenger
   @api_base = 'https://fcm.googleapis.com/fcm'
@@ -22,7 +24,14 @@ module FirebaseMessenger
     attr_accessor :project_id, :api_key, :api_base
 
     def config
-      yield self if block_given?
+      return options unless block_given?
+      yield self
+    end
+
+    def options
+      { project_id: project_id,
+        api_key: api_key,
+        api_base: api_base }
     end
   end
 end
