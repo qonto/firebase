@@ -3,7 +3,9 @@ module FirebaseMessenger
     class Notification < Base
       def send
         response = conn('send', params).post
-        JSON.parse(response.body) if ok?(response)
+        return response.json if ok?(response)
+        error = FirebaseMessenger::BaseError.new(200, response.results.to_s)
+        raise error, error.message
       end
     end
   end

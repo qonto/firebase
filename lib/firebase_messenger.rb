@@ -3,14 +3,16 @@ require 'json'
 require 'httpclient'
 require 'pry'
 
+require 'firebase_messenger/helpers/connect_helper'
+require 'firebase_messenger/helpers/errors_helper'
+require 'firebase_messenger/helpers/response_helper'
+
 require 'firebase_messenger/connection'
 require 'firebase_messenger/errors'
 
-require 'firebase_messenger/helpers/connect_helper'
-require 'firebase_messenger/helpers/errors_helper'
-
 require 'firebase_messenger/api/base'
 require 'firebase_messenger/api/notification'
+require 'firebase_messenger/api/response'
 
 require 'firebase_messenger/notification'
 

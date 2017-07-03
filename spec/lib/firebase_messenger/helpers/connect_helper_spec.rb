@@ -4,7 +4,7 @@ describe FirebaseMessenger::Helpers::ConnectHelper do
   describe '#conn' do
     let(:endpoint) { 'send' }
 
-    it 'Instantiate FirebaseMessenger::Connection' do
+    it 'instantiate FirebaseMessenger::Connection' do
       expect(FirebaseMessenger::Connection).to receive(:new)
         .with(endpoint, {})
 
