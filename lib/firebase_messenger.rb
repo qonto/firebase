@@ -22,7 +22,14 @@ module FirebaseMessenger
     attr_accessor :project_id, :api_key, :api_base
 
     def config
-      yield self if block_given?
+      return yield self if block_given?
+      options
+    end
+
+    def options
+      { project_id: project_id,
+        api_key: api_key,
+        api_base: api_base }
     end
   end
 end
