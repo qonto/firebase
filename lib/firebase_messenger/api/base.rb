@@ -2,7 +2,6 @@ module FirebaseMessenger
   module Api
     class Base
       include FirebaseMessenger::Helpers::ConnectHelper
-      include FirebaseMessenger::Helpers::ErrorsHelper
 
       attr_reader :recipient, :body, :options
 
@@ -13,14 +12,13 @@ module FirebaseMessenger
       end
 
       def params
-        { registration_ids: recipient }.merge(notification: body).merge(options)
+        { registration_ids: recipient, notification: body }.merge(options)
       end
 
       private
 
       def ok?(response)
-        return true if response.status == 200
-        handle_error(response.status)
+        response.failure.zero?
       end
     end
   end

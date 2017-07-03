@@ -25,4 +25,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'bundler', '~> 1.7'
   gem.add_development_dependency 'rspec', '~> 3.1'
   gem.add_development_dependency 'simplecov'
+  gem.add_development_dependency 'webmock'
+  gem.add_development_dependency 'sinatra'
 end

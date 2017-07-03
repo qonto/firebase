@@ -37,16 +37,36 @@ describe FirebaseMessenger do
   end
 
   describe '.config' do
-    it 'configures' do
-      subject.config do |config|
-        config.api_key    = nil
-        config.api_base   = 'https://fcm.googleapis.com/fcm'
-        config.project_id = nil
+    context 'when block passed' do
+      before do
+        subject.config do |config|
+          config.api_key = nil
+          config.api_base = 'https://fcm.googleapis.com/fcm'
+          config.project_id = nil
+        end
       end
 
-      expect(subject.api_key).to eq(nil)
-      expect(subject.project_id).to eq(nil)
-      expect(subject.api_base).to eq('https://fcm.googleapis.com/fcm')
+      it 'set configuration' do
+        expect(subject.api_key).to eq(nil)
+        expect(subject.project_id).to eq(nil)
+        expect(subject.api_base).to eq('https://fcm.googleapis.com/fcm')
+      end
+    end
+
+    context 'when no block passed' do
+      it 'calls options' do
+        expect(subject).to receive(:options)
+        subject.config
+      end
+    end
+  end
+
+  describe '#options' do
+    subject { described_class.options }
+
+    it 'returns config' do
+      expect(subject).to be_a(Hash)
+      expect(subject.keys).to include(:project_id, :api_key, :api_base)
     end
   end
 end

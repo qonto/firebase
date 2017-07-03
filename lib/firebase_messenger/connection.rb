@@ -1,5 +1,8 @@
 module FirebaseMessenger
   class Connection
+    include FirebaseMessenger::Helpers::ErrorsHelper
+    include FirebaseMessenger::Helpers::ResponseHelper
+
     attr_reader :url, :body
 
     def initialize(url, body = {})
@@ -8,14 +11,20 @@ module FirebaseMessenger
     end
 
     def get
-      conn.send(:get, "#{base_url}/#{url}", body.to_json)
+      handle_response { conn.send(:get, "#{base_url}/#{url}", body.to_json) }
     end
 
     def post
-      conn.send(:post, "#{base_url}/#{url}", body.to_json)
+      handle_response { conn.send(:post, "#{base_url}/#{url}", body.to_json) }
     end
 
     private
+
+    def handle_response
+      response = yield
+      return build_response(response.body) if response.status == 200
+      handle_error(response.status)
+    end
 
     def base_url
       FirebaseMessenger.api_base

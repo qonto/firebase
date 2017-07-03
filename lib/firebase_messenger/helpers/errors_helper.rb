@@ -1,5 +1,6 @@
 module FirebaseMessenger
   module Helpers
+    # To simplify errors handle
     module ErrorsHelper
       def handle_error(status_code)
         case status_code

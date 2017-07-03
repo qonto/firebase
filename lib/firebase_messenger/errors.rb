@@ -2,9 +2,9 @@ module FirebaseMessenger
   class BaseError < StandardError
     attr_reader :code, :message
 
-    def initialize(code)
+    def initialize(code, message = nil)
       @code    = code.to_i
-      @message = build_message
+      @message = message || build_message
     end
 
     private
